@@ -19,6 +19,11 @@
 |                   |            |
 |                   |            |
 
+###### Implementation
+
+- CDirctXRenderingEngine 不再使用，只是用到CRenderEngine这一层， 里面的组件由Vulkan实现
+- InitDirecrt3D()  函数不再使用，原函数里面的每一步转而都由RenderEgning里面的各个模块自己实现
+
 ###### Question
 
 - Delegate
