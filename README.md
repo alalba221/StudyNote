@@ -40,8 +40,14 @@
 
 ###### Classes
 
-<img src="NoteImage\CCoreMinimalObject.png" style="zoom:50%;" />
+- C
 
-<img src="NoteImage\CEngine.png" style="zoom:80%;" />
+<img src="NoteImage\CCoreMinimalObject.png" width=600 />
 
-<img src="NoteImage\CRenderingEngine.png" style="zoom:50%;" />
+<img src="NoteImage\CEngine.png" width=600 />
+
+<img src="NoteImage\CRenderingEngine.png" width=600 />
+
+- F
+
+  <img src="NoteImage\IDirectDeviceInterfece.png" width=600 />
