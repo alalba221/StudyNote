@@ -25,6 +25,7 @@
 - InitDirecrt3D()  函数不再使用，原函数里面的每一步转而都由RenderEgning里面的各个模块自己实现
 - VulkanContext 参考[Piccolo/engine/source/runtime/function/render/include/render/vulkan_manager/vulkan_context.h at games104/homework02-rendering · BoomingTech/Piccolo (github.com)](https://github.com/BoomingTech/Piccolo/blob/games104/homework02-rendering/engine/source/runtime/function/render/include/render/vulkan_manager/vulkan_context.h)
 - Renderer 参考 https://github.com/BoomingTech/Piccolo/blob/games104/homework02-rendering/engine/source/runtime/function/render/include/render/vulkan_manager/vulkan_manager.h
+- in piccolo : vulkan_manager has a vulkan_context member, several pass, descriptor pool
 
 ###### Question
 
