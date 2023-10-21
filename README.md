@@ -7,17 +7,19 @@
 
 ###### DX12 vs. Vulkan
 
-| DX12                                                         | Vulkan                                                       |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| DXGIFactory                                                  | Instance                                                     |
-| MianWindowsHandle                                            | SurfaceKHR                                                   |
-| Render Target View (RTV) [DX12封装杂记：Descriptor及DescriptorHeap - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/403421121) | renderpass or Framebuffer or **Image & imageView**           |
-| Depth Stencil View (DSV)                                     | renderpass or Framebuffer or **DepthImage & DepthImageView** |
-|                                                              |                                                              |
-|                                                              |                                                              |
-|                                                              |                                                              |
-|                                                              |                                                              |
-|                                                              |                                                              |
+| DX12                     | Vulkan                                          |
+| ------------------------ | ----------------------------------------------- |
+| DXGIFactory              | Instance                                        |
+| MianWindowsHandle        | SurfaceKHR                                      |
+| Render Target View (RTV) | renderpass or Framebuffer or **imageView**      |
+| Depth Stencil View (DSV) | renderpass or Framebuffer or **DepthImageView** |
+| SwapChain buffer         | **swap chain's Image **                         |
+| Depth Resource           | **DepthImage **                                 |
+|                          |                                                 |
+|                          |                                                 |
+|                          |                                                 |
+
+[DX12封装杂记：Descriptor及DescriptorHeap - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/403421121)
 
 - Constant buffer view (CBV) 【用于一般数据提交】
 - Unordered access view (UAV) 【用于CS可写入的纹理】
@@ -31,6 +33,11 @@
 
 不过这些Resources的Descriptor类型可大概分为两类，其中前四个是Shader Visible的，之后的所有则不属于Shader Visible。在实践中，Shader Visible的descriptor类型要通过绑定在RootSiganture上传递给shader使用，而其他的descriptor不通过该流程指定，往往是通过command list直接指定。
 
+
+
+- 3_10 and 3_11 相当建立image和imageview
+- 3_12 相当于image layout 转换
+
 ###### Implementation
 
 - CDirctXRenderingEngine 不再使用，只是用到CRenderEngine这一层， 里面的组件由Vulkan实现
@@ -38,8 +45,11 @@
 - VulkanContext 参考[Piccolo/engine/source/runtime/function/render/include/render/vulkan_manager/vulkan_context.h at games104/homework02-rendering · BoomingTech/Piccolo (github.com)](https://github.com/BoomingTech/Piccolo/blob/games104/homework02-rendering/engine/source/runtime/function/render/include/render/vulkan_manager/vulkan_context.h)
 - Renderer 参考 https://github.com/BoomingTech/Piccolo/blob/games104/homework02-rendering/engine/source/runtime/function/render/include/render/vulkan_manager/vulkan_manager.h
 - in piccolo : vulkan_manager has a vulkan_context member, several pass, descriptor pool
+- Multisampling isn't set up by now
 
 ###### Question
+
+- 为什么DSV不是两个？
 
 - Delegate
 
@@ -56,7 +66,7 @@
 
   Core	文件下应该是一些General的接口类，但是在这里重度依赖DX12的api，是不是很不科学？
   
-- CRenderingEngine 按照命名规则属于核心(start with capital C),  目前代码中Fence,CMDlist 都是引擎中的CRenderingEngine 的member，但是如果要把这些Fence，cmdlist 这些每一个单独抽象一个class出来，他们是属于结构(F), 还是核心(C)?
+- ~~CRenderingEngine 按照命名规则属于核心(start with capital C),  目前代码中Fence,CMDlist 都是引擎中的CRenderingEngine 的member，但是如果要把这些Fence，cmdlist 这些每一个单独抽象一个class出来，他们是属于结构(F), 还是核心(C)?~~
 
 ###### Classes
 
