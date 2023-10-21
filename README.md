@@ -7,17 +7,29 @@
 
 ###### DX12 vs. Vulkan
 
-| DX12              | Vulkan     |
-| ----------------- | ---------- |
-| DXGIFactory       | Instance   |
-| MianWindowsHandle | SurfaceKHR |
-|                   |            |
-|                   |            |
-|                   |            |
-|                   |            |
-|                   |            |
-|                   |            |
-|                   |            |
+| DX12                                                         | Vulkan                                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| DXGIFactory                                                  | Instance                                                     |
+| MianWindowsHandle                                            | SurfaceKHR                                                   |
+| Render Target View (RTV) [DX12封装杂记：Descriptor及DescriptorHeap - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/403421121) | renderpass or Framebuffer or **Image & imageView**           |
+| Depth Stencil View (DSV)                                     | renderpass or Framebuffer or **DepthImage & DepthImageView** |
+|                                                              |                                                              |
+|                                                              |                                                              |
+|                                                              |                                                              |
+|                                                              |                                                              |
+|                                                              |                                                              |
+
+- Constant buffer view (CBV) 【用于一般数据提交】
+- Unordered access view (UAV) 【用于CS可写入的纹理】
+- Shader resource view (SRV) 【用于提交给shader的纹理】
+- Samplers 【提交给shader的所使用的纹理采样器】
+- Render Target View (RTV) 【渲染目标纹理】
+- Depth Stencil View (DSV) 【渲染目标深度/模板共享纹理】
+- Index Buffer View (IBV) 【Mesh中的索引数据】
+- Vertex Buffer View (VBV) 【Mesh中的顶点数据】
+- Stream Output View (SOV) 【Stream Output输出数据】
+
+不过这些Resources的Descriptor类型可大概分为两类，其中前四个是Shader Visible的，之后的所有则不属于Shader Visible。在实践中，Shader Visible的descriptor类型要通过绑定在RootSiganture上传递给shader使用，而其他的descriptor不通过该流程指定，往往是通过command list直接指定。
 
 ###### Implementation
 
