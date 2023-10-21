@@ -36,7 +36,7 @@
 
 
 - 3_10 and 3_11 相当建立image和imageview
-- 3_12 相当于image layout 转换
+- 3_12 相当于image layout 转换 （记得回去复习vulkan的synchronization）
 
 ###### Implementation
 
